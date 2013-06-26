@@ -24,6 +24,7 @@ define(function(require) {
 
       // plugins
       QuantumDynamics      = require('md2d/models/engine/plugins/quantum-dynamics');
+      ChemicalReactions    = require('md2d/models/engine/plugins/chemical-reactions');
 
   return function Model(initialProperties) {
 
@@ -554,6 +555,13 @@ define(function(require) {
         engine.addPlugin(new QuantumDynamics(engine, pluginProperties.quantumDynamics));
       } else {
         properties.useQuantumDynamics = false;
+      }
+
+      if (pluginProperties.chemicalReactions) {
+        properties.useChemicalReactions = true;
+        engine.addPlugin(new ChemicalReactions(engine, pluginProperties.chemicalReactions));
+      } else {
+        properties.useChemicalReactions = false;
       }
 
       // Copy reference to basic properties.
@@ -1686,6 +1694,17 @@ define(function(require) {
       };
     }
 
+    function serializeChemicalReactions() {
+      // var photons = model.getPhotons();
+      // 
+      // return {
+      //   photons: serialize(metadata.photon, unroll(photons), photons.length),
+      //   elementEnergyLevels: engine.callPluginAccessor('getElementEnergyLevels'),
+      //   radiationlessEmissionProbability: engine.callPluginAccessor('getRadiationlessEmissionProbability')
+      // };
+      return {};
+    }
+
     model.serialize = function() {
       var propCopy = {},
           ljProps, i, len,
@@ -1792,6 +1811,12 @@ define(function(require) {
         propCopy.quantumDynamics = serializeQuantumDynamics();
       }
 
+      if (model.properties.useChemicalReactions) {
+        propCopy.chemicalReactions = serializeChemicalReactions();
+      } else {
+        delete propCopy.atoms.radical;
+      }
+
       removeAtomsArrayIfDefault("marked", metadata.atom.marked.defaultValue);
       removeAtomsArrayIfDefault("visible", metadata.atom.visible.defaultValue);
       removeAtomsArrayIfDefault("draggable", metadata.atom.draggable.defaultValue);
@@ -1849,7 +1874,8 @@ define(function(require) {
     // requires changing the model JSON schema when functionality is moved out of the main engine
     // and into a plugin, or vice-versa.
     pluginProperties = {
-      quantumDynamics: initialProperties.quantumDynamics
+      quantumDynamics: initialProperties.quantumDynamics,
+      chemicalReactions: initialProperties.chemicalReactions
     };
 
     // TODO: Elements are stored and treated different from other objects. This was enforced by

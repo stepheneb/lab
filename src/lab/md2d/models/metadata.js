@@ -126,7 +126,11 @@ define(function() {
         defaultValue: true
       },
       useQuantumDynamics: {
-        default: false,
+        defaultValue: false,
+        serialize: false
+      },
+      useChemicalReactions: {
+        defaultValue: false,
         serialize: false
       }
     },
@@ -299,6 +303,9 @@ define(function() {
       friction: {
         defaultValue: 0,
         unitType: "dampingCoefficient"
+      },
+      radical: {
+        defaultValue: 0
       },
       visible: {
         defaultValue: 1
@@ -626,7 +633,55 @@ define(function() {
       hostIndex: {},
       textAlign: {}
     },
-
+    chemicalReaction: {
+      type: {},
+      parameters: {
+        VA2B: {
+        },
+        VAA: {
+        },
+        VAB: {
+        },
+        VAB2: {
+        },
+        VABC: {
+        },
+        VAC: {
+        },
+        VAD: {
+        },
+        VBA2: {
+        },
+        VBAC: {
+        },
+        VBB: {
+        },
+        VBC: {
+        },
+        VBD: {
+        },
+        VCA2: {
+        },
+        VCB2: {
+        },
+        VCC: {
+        },
+        VCD: {
+        },
+        VDD: {
+        },
+        VHH: {
+        },
+        VHO: {
+        },
+        VHO2: {
+        },
+        VOH2: {
+        },
+        VOO: {
+        }
+      }
+    },
     quantumDynamics: {
       elementEnergyLevels: {
         defaultValue: []
