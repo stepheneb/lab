@@ -1680,14 +1680,14 @@ define(function(require) {
     // its content.
 
     function updateParticles() {
-      particle.attr({
-        "cx": function(d) {
-          return model2px(d.x);
-        },
-        "cy": function(d) {
-          return model2pxInv(d.y);
-        }
-      });
+      // particle.attr({
+      //   "cx": function(d) {
+      //     return model2px(d.x);
+      //   },
+      //   "cy": function(d) {
+      //     return model2pxInv(d.y);
+      //   }
+      // });
 
       if (keShadingMode || chargeShadingMode) {
         // When Kinetic Energy Shading or Charge Shading is enabled, update style of atoms
@@ -1708,9 +1708,9 @@ define(function(require) {
         });
       }
 
-      label.attr("transform", function(d) {
-        return "translate(" + model2px(d.x) + "," + model2pxInv(d.y) + ")";
-      });
+      // label.attr("transform", function(d) {
+      //   return "translate(" + model2px(d.x) + "," + model2pxInv(d.y) + ")";
+      // });
 
       if (atomTooltipOn === 0 || atomTooltipOn > 0) {
         renderAtomTooltip(atomTooltipOn);
